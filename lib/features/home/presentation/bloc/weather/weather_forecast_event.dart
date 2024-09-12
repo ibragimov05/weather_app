@@ -4,22 +4,21 @@ sealed class WeatherForecastEvent extends Equatable {
   const WeatherForecastEvent();
 }
 
-class GetWeatherByUserCurrentLocationEvent extends WeatherForecastEvent {
+// class GetWeatherByUserCurrentLocationEvent extends WeatherForecastEvent {
+//   @override
+//   List<Object> get props => [];
+// }
+
+class GetWeatherByNameEvent extends WeatherForecastEvent {
+  final String cityName;
+
+  // final double latitude;
+  // final double longitude;
+
+  const GetWeatherByNameEvent({required this.cityName});
+
   @override
-  List<Object> get props => [];
-}
-
-class GetWeatherByLatLongEvent extends WeatherForecastEvent {
-  final double latitude;
-  final double longitude;
-
-  const GetWeatherByLatLongEvent({
-    required this.latitude,
-    required this.longitude,
-  });
-
-  @override
-  List<Object> get props => [latitude, longitude];
+  List<Object> get props => [cityName];
 }
 
 class RefreshWeatherEvent extends WeatherForecastEvent {

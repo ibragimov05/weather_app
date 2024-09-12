@@ -1,9 +1,5 @@
 class SendWeatherForecastRequest {
-  final double latitude;
-  final double longitude;
+  final String cityName;
 
-  const SendWeatherForecastRequest({
-    required this.latitude,
-    required this.longitude,
-  });
+  const SendWeatherForecastRequest({required this.cityName});
 }

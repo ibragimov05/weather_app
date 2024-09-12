@@ -2,6 +2,7 @@ part of '../../domain/repository/weather_forecast_repository.dart';
 
 class WeatherForecastRepositoryImpl extends WeatherForecastRepository {
   final Dio _dio;
+  static final String _apiKey = dotenv.get('API_KEY');
 
   const WeatherForecastRepositoryImpl({
     required Dio dio,
@@ -12,11 +13,9 @@ class WeatherForecastRepositoryImpl extends WeatherForecastRepository {
     required SendWeatherForecastRequest request,
   }) async {
     try {
-      // final String url =
-      //     '${Constants.baseUrl}?latitude=${request.latitude}&longitude=${request.longitude}${Constants.queryParameter}';
-
       final Response<dynamic> response = await _dio.get(
-          'https://api.weatherapi.com/v1/forecast.json?key=&q=tashkent&days=3');
+        '${Constants.baseUrl}?key=$_apiKey&q=${request.cityName}&days=4',
+      );
 
       return Right<Failure, WeatherForecastResponse>(
         WeatherForecastResponse.fromJson(response.data),

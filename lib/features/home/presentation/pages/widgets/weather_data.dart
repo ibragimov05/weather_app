@@ -12,29 +12,36 @@ class WeatherData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (weatherForecastResponse == null) return const FlutterLogo();
+    if (weatherForecastResponse == null) {
+      return const Center(
+        child: Text('Something went wrong'),
+      );
+    }
 
     final WeatherForecastResponse response = weatherForecastResponse!;
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        _weatherData(
-          data: "${response.current?.humidity}%",
-          type: 'Humidity',
-          icoPath: AppAssets.icons.humidity.path,
-        ),
-        _weatherData(
-          data: "${response.current?.windKph}km/h",
-          type: 'Wind',
-          icoPath: AppAssets.icons.wind.path,
-        ),
-        _weatherData(
-          data: "${response.current?.feelslikeC}°",
-          type: 'Feels like',
-          icoPath: AppAssets.icons.feelsLike.path,
-        ),
-      ],
+    return Padding(
+      padding: AppUtils.kPaddingAll24,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          _weatherData(
+            data: "${response.current?.humidity}%",
+            type: 'Humidity',
+            icoPath: AppAssets.icons.humidity.path,
+          ),
+          _weatherData(
+            data: "${response.current?.windKph}km/h",
+            type: 'Wind',
+            icoPath: AppAssets.icons.wind.path,
+          ),
+          _weatherData(
+            data: "${response.current?.feelslikeC}°",
+            type: 'Feels like',
+            icoPath: AppAssets.icons.feelsLike.path,
+          ),
+        ],
+      ),
     );
   }
 

@@ -9,6 +9,10 @@ sealed class Failure extends Equatable {
   List<Object?> get props => <Object?>[message];
 }
 
+class StorageFailure extends Failure {
+  const StorageFailure({required super.message});
+}
+
 class ServerFailure extends Failure {
   final int? statusCode;
 

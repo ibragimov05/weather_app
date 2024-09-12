@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:weather_app/services/location_service.dart';
 
 import '../../../../../core/either/either.dart';
 import '../../../../../core/error/failure.dart';
@@ -23,33 +22,32 @@ class WeatherForecastBloc
     required WeatherForecastRepository weatherForecastRepository,
   })  : _weatherForecastRepository = weatherForecastRepository,
         super(const WeatherForecastState()) {
-    on<GetWeatherByUserCurrentLocationEvent>(_onGetUserLocation);
-    on<GetWeatherByLatLongEvent>(_onGetWeatherByLatLong);
+    // on<GetWeatherByUserCurrentLocationEvent>(_onGetUserLocation);
+    on<GetWeatherByNameEvent>(_onGetWeatherByLatLong);
   }
 
-  void _onGetUserLocation(
-    GetWeatherByUserCurrentLocationEvent event,
-    Emitter<WeatherForecastState> emit,
-  ) async {
-    emit(state.copyWith(weatherForecastStatus: WeatherForecastStatus.loading));
-
-    final currentLocation = await LocationService.determinePosition();
-
-    if (currentLocation == null) {
-      emit(state.copyWith(
-        weatherForecastStatus: WeatherForecastStatus.error,
-        errorMessage: 'Please enable location service',
-      ));
-    } else {
-      add(GetWeatherByLatLongEvent(
-        latitude: currentLocation.latitude,
-        longitude: currentLocation.longitude,
-      ));
-    }
-  }
+  // void _onGetUserLocation(
+  //   GetWeatherByUserCurrentLocationEvent event,
+  //   Emitter<WeatherForecastState> emit,
+  // ) async {
+  //   emit(state.copyWith(weatherForecastStatus: WeatherForecastStatus.loading));
+  //
+  //   final currentLocation = await LocationService.determinePosition();
+  //
+  //   if (currentLocation == null) {
+  //     emit(state.copyWith(
+  //       weatherForecastStatus: WeatherForecastStatus.error,
+  //       errorMessage: 'Please enable location service',
+  //     ));
+  //   } else {
+  //     add(GetWeatherByNameEvent(
+  //       cityName:
+  //     ));
+  //   }
+  // }
 
   void _onGetWeatherByLatLong(
-    GetWeatherByLatLongEvent event,
+    GetWeatherByNameEvent event,
     Emitter<WeatherForecastState> emit,
   ) async {
     emit(state.copyWith(weatherForecastStatus: WeatherForecastStatus.loading));
@@ -57,8 +55,9 @@ class WeatherForecastBloc
     final Either<Failure, WeatherForecastResponse> result =
         await _weatherForecastRepository.getWeatherForecastByLatLong(
       request: SendWeatherForecastRequest(
-        latitude: event.latitude,
-        longitude: event.longitude,
+        // latitude: event.latitude,
+        // longitude: event.longitude,
+        cityName: event.cityName,
       ),
     );
 

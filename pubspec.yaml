@@ -49,6 +49,8 @@ dependencies:
   json_annotation: ^4.9.0
   lottie: ^3.1.2
   gap: ^3.0.1
+  shared_preferences: ^2.3.2
+  flutter_dotenv: ^5.1.0
 
 dev_dependencies:
   flutter_test:
@@ -78,3 +80,4 @@ flutter:
     - assets/lottie/
     - assets/icons/
     - assets/images/
+    - .env

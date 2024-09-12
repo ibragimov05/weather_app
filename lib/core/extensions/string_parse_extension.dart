@@ -1,6 +1,6 @@
 import '../utils/utils.dart';
 
-extension StringLottieX on String? {
+extension StringParseX on String? {
   String get lottiePath {
     if (this == null) return AppAssets.lottie.cloud.path;
 
@@ -20,5 +20,17 @@ extension StringLottieX on String? {
       default:
         return AppAssets.lottie.cloud.path;
     }
+  }
+
+  DateTime get parseToDateTime {
+    if (this == null) return DateTime.now();
+
+    final dateParts = this!.split('-');
+
+    int year = int.parse(dateParts[0]);
+    int month = int.parse(dateParts[1]);
+    int day = int.parse(dateParts[2]);
+
+    return DateTime(year, month, day);
   }
 }
