@@ -9,7 +9,8 @@ class WeatherForecastRepositoryImpl extends WeatherForecastRepository {
   }) : _dio = dio;
 
   @override
-  Future<Either<Failure, WeatherForecastResponse>> getWeatherForecastByCityName({
+  Future<Either<Failure, WeatherForecastResponse>>
+      getWeatherForecastByCityName({
     required SendWeatherForecastRequest request,
   }) async {
     try {
@@ -22,11 +23,13 @@ class WeatherForecastRepositoryImpl extends WeatherForecastRepository {
       );
     } on DioException catch (error, stacktrace) {
       log("Dio exception occurred: $error stacktrace: $stacktrace");
+
       return Left<Failure, WeatherForecastResponse>(
         ServerError.withDioError(error: error).failure,
       );
     } on Exception catch (error, stacktrace) {
       log("Exception occurred: $error stacktrace: $stacktrace");
+
       return Left<Failure, WeatherForecastResponse>(
         ServerError.withError(message: error.toString()).failure,
       );

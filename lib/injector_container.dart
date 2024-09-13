@@ -3,15 +3,13 @@ import "dart:developer";
 import "package:dio/dio.dart";
 import "package:flutter/foundation.dart";
 import "package:get_it/get_it.dart";
-import "package:shared_preferences/shared_preferences.dart";
-import "package:weather_app/features/home/domain/repository/weather_forecast_repository.dart";
-import "package:weather_app/features/home/presentation/bloc/saved_location/saved_location_bloc.dart";
-import "package:weather_app/features/home/presentation/bloc/weather/weather_forecast_bloc.dart";
+
+import "features/home/domain/repository/weather_forecast_repository.dart";
+import "features/home/presentation/bloc/blocs.dart";
 
 final GetIt getIt = GetIt.instance;
 
 Future<void> init() async {
-
   /// registering dio
   getIt.registerLazySingleton(
     () => Dio()
@@ -33,9 +31,6 @@ Future<void> init() async {
         },
       )),
   );
-
-  /// registering shared preference
-  // getIt.registerLazySingleton(() => preferences);
 
   /// registering blocs
   getIt.registerLazySingleton(

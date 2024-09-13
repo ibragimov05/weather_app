@@ -24,6 +24,12 @@ class SavedLocationItem extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               color: Colors.red,
               alignment: Alignment.centerRight,
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Icon(Icons.delete, color: AppColors.white, size: 30)
+                ],
+              ),
             ),
             key: ValueKey(
               "${response.lastUpdatedAt?.microsecondsSinceEpoch ?? DateTime.now().microsecondsSinceEpoch}",
@@ -35,7 +41,6 @@ class SavedLocationItem extends StatelessWidget {
               padding: AppUtils.kPaddingAll16,
               decoration: BoxDecoration(
                 color: AppColors.grey.withOpacity(0.3),
-                borderRadius: AppUtils.kBorderRadius16,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -85,6 +90,13 @@ class SavedLocationItem extends StatelessWidget {
                                 style: const TextStyle(
                                     fontWeight: FontWeight.w500)),
                           ],
+                        ),
+                      ),
+                      Text(
+                        'Updated ${response.lastUpdatedAt?.formatDateUpdated}',
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: AppColors.white,
                         ),
                       ),
                     ],

@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import '../../../../../injector_container.dart';
 import '../../bloc/weather/weather_forecast_bloc.dart';
 
-/// [WeatherEmpty] widget works only once
+/// [WeatherEmptyCircular] widget works only once
 ///
 /// When the user enters first time to the app
-class WeatherEmpty extends StatelessWidget {
-  const WeatherEmpty({super.key});
+class WeatherEmptyCircular extends StatelessWidget {
+  const WeatherEmptyCircular({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,4 @@
-import 'package:intl/intl.dart';
+part of 'extensions.dart';
 
 extension ParseStringX on DateTime {
   String get formatDate => DateFormat('MMMM dd').format(this);

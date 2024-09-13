@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'app.dart';
 import 'core/utils/utils.dart';
+import 'features/home/presentation/bloc/weather/weather_forecast_bloc.dart';
 import 'injector_container.dart' as di;
+import 'injector_container.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,5 +30,10 @@ void main() async {
         : await getTemporaryDirectory(),
   );
 
-  runApp(const App());
+  runApp(
+    BlocProvider.value(
+      value: getIt<WeatherForecastBloc>(),
+      child: const App(),
+    ),
+  );
 }

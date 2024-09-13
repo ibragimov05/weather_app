@@ -2,23 +2,24 @@ part of 'saved_location_bloc.dart';
 
 @JsonSerializable()
 class SavedLocationState extends Equatable {
-  final List<WeatherForecastResponse> savedLocationsWeather;
+  final List<WeatherForecastResponse> savedLocationsWeathers;
   final SavedLocationStatus status;
   final String? error;
 
   const SavedLocationState({
-    this.savedLocationsWeather = const [],
+    this.savedLocationsWeathers = const [],
     this.status = SavedLocationStatus.initial,
     this.error,
   });
 
   SavedLocationState copyWith({
-    List<WeatherForecastResponse>? savedLocations,
+    List<WeatherForecastResponse>? savedLocationsWeathers,
     SavedLocationStatus? status,
     String? error,
   }) =>
       SavedLocationState(
-        savedLocationsWeather: savedLocations ?? this.savedLocationsWeather,
+        savedLocationsWeathers:
+            savedLocationsWeathers ?? this.savedLocationsWeathers,
         status: status ?? this.status,
         error: error ?? this.error,
       );
@@ -29,7 +30,7 @@ class SavedLocationState extends Equatable {
   Map<String, dynamic> toJson() => _$SavedLocationStateToJson(this);
 
   @override
-  List<Object?> get props => [savedLocationsWeather, status, error];
+  List<Object?> get props => [savedLocationsWeathers, status, error];
 }
 
 /// enumeration for saved location

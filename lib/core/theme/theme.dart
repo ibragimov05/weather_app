@@ -1,2 +1,5 @@
-export 'theme_data.dart';
-export 'colors/app_colors.dart';
+import 'package:flutter/material.dart';
+
+part 'theme_data.dart';
+
+part 'colors/app_colors.dart';

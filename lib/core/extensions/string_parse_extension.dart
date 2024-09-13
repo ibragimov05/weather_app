@@ -1,4 +1,4 @@
-import '../utils/utils.dart';
+part of 'extensions.dart';
 
 extension StringParseX on String? {
   String get lottiePath {

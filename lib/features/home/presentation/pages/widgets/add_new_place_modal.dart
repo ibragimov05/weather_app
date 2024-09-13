@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/core/core.dart';
-import 'package:weather_app/features/home/presentation/bloc/saved_location/saved_location_bloc.dart';
-import 'package:weather_app/injector_container.dart';
+
+import '../../../../../core/core.dart';
+import '../../../../../injector_container.dart';
+import '../../bloc/saved_location/saved_location_bloc.dart';
 
 class AddNewPlaceModal extends StatefulWidget {
   const AddNewPlaceModal({super.key});
@@ -17,7 +18,7 @@ class _AddNewPlaceModalState extends State<AddNewPlaceModal> {
   void _onAddTap() {
     if (_formKey.currentState!.validate()) {
       getIt.get<SavedLocationBloc>().add(AddNewLocationEvent(
-            cityName: _controller.text,
+            cityName: _controller.text.trim(),
           ));
       Navigator.of(context).pop();
     }

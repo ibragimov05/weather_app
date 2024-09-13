@@ -2,11 +2,9 @@ import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../../../core/either/either.dart';
-import '../../../../../core/error/failure.dart';
-import '../../../data/models/send_weather_forecast_request.dart';
+import '../../../../../core/core.dart';
+import '../../../data/models/models.dart';
 import '../../../domain/repository/weather_forecast_repository.dart';
-import '../../../data/models/weather_forecast/weather_forecast_response.dart';
 
 part 'weather_forecast_event.dart';
 
@@ -22,29 +20,8 @@ class WeatherForecastBloc
     required WeatherForecastRepository weatherForecastRepository,
   })  : _weatherForecastRepository = weatherForecastRepository,
         super(const WeatherForecastState()) {
-    // on<GetWeatherByUserCurrentLocationEvent>(_onGetUserLocation);
     on<GetWeatherByNameEvent>(_onGetWeatherByLatLong);
   }
-
-  // void _onGetUserLocation(
-  //   GetWeatherByUserCurrentLocationEvent event,
-  //   Emitter<WeatherForecastState> emit,
-  // ) async {
-  //   emit(state.copyWith(weatherForecastStatus: WeatherForecastStatus.loading));
-  //
-  //   final currentLocation = await LocationService.determinePosition();
-  //
-  //   if (currentLocation == null) {
-  //     emit(state.copyWith(
-  //       weatherForecastStatus: WeatherForecastStatus.error,
-  //       errorMessage: 'Please enable location service',
-  //     ));
-  //   } else {
-  //     add(GetWeatherByNameEvent(
-  //       cityName:
-  //     ));
-  //   }
-  // }
 
   void _onGetWeatherByLatLong(
     GetWeatherByNameEvent event,
@@ -55,8 +32,6 @@ class WeatherForecastBloc
     final Either<Failure, WeatherForecastResponse> result =
         await _weatherForecastRepository.getWeatherForecastByCityName(
       request: SendWeatherForecastRequest(
-        // latitude: event.latitude,
-        // longitude: event.longitude,
         cityName: event.cityName,
       ),
     );

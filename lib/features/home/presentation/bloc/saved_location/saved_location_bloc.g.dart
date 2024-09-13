@@ -8,7 +8,7 @@ part of 'saved_location_bloc.dart';
 
 SavedLocationState _$SavedLocationStateFromJson(Map<String, dynamic> json) =>
     SavedLocationState(
-      savedLocationsWeather: (json['savedLocationsWeather'] as List<dynamic>?)
+      savedLocationsWeathers: (json['savedLocationsWeather'] as List<dynamic>?)
               ?.map((e) =>
                   WeatherForecastResponse.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -21,7 +21,7 @@ SavedLocationState _$SavedLocationStateFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$SavedLocationStateToJson(SavedLocationState instance) =>
     <String, dynamic>{
-      'savedLocationsWeather': instance.savedLocationsWeather,
+      'savedLocationsWeather': instance.savedLocationsWeathers,
       'status': _$SavedLocationStatusEnumMap[instance.status]!,
       'error': instance.error,
     };

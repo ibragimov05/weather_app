@@ -1,11 +1,11 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:weather_app/core/core.dart';
-import 'package:weather_app/features/home/data/models/send_weather_forecast_request.dart';
-import 'package:weather_app/features/home/data/models/weather_forecast/weather_forecast_response.dart';
-import 'package:weather_app/features/home/domain/repository/weather_forecast_repository.dart';
+
+import '../../../../../../core/core.dart';
+import '../../../data/models/models.dart';
+import '../../../domain/repository/weather_forecast_repository.dart';
 
 part 'saved_location_event.dart';
 
@@ -21,15 +21,17 @@ class SavedLocationBloc
     required WeatherForecastRepository weatherForecastRepository,
   })  : _weatherForecastRepository = weatherForecastRepository,
         super(const SavedLocationState()) {
-    on<GetSavedLocationsWeatherEvent>(_onGetSavedLocationsWeather);
+    on<RefreshSavedLocationsWeatherEvent>(_onGetSavedLocationsWeather);
     on<AddNewLocationEvent>(_onAddNewLocation);
     on<DeleteLocationEvent>(_onDeleteLocation);
   }
 
   void _onGetSavedLocationsWeather(
-    GetSavedLocationsWeatherEvent event,
+    RefreshSavedLocationsWeatherEvent event,
     Emitter<SavedLocationState> emit,
   ) async {
+    if (event.weatherForecasts.isEmpty) return;
+
     emit(state.copyWith(status: SavedLocationStatus.loading));
     try {
       final List<WeatherForecastResponse> data = [];
@@ -50,7 +52,7 @@ class SavedLocationBloc
 
       emit(state.copyWith(
         status: SavedLocationStatus.loaded,
-        savedLocations: data,
+        savedLocationsWeathers: data,
       ));
     } catch (e) {
       emit(state.copyWith(
@@ -74,7 +76,7 @@ class SavedLocationBloc
     response.fold(
       (Failure l) => emit(state.copyWith(status: SavedLocationStatus.loaded)),
       (WeatherForecastResponse r) {
-        state.savedLocationsWeather.add(r);
+        state.savedLocationsWeathers.add(r);
         emit(state.copyWith(status: SavedLocationStatus.loaded));
       },
     );
@@ -86,7 +88,7 @@ class SavedLocationBloc
   ) async {
     emit(state.copyWith(status: SavedLocationStatus.loading));
 
-    final locations = state.savedLocationsWeather;
+    final locations = state.savedLocationsWeathers;
 
     final int index = locations.indexWhere(
       (element) => element.location?.name == event.cityName,
@@ -95,7 +97,7 @@ class SavedLocationBloc
     if (index != -1) locations.removeAt(index);
 
     emit(state.copyWith(
-      savedLocations: locations,
+      savedLocationsWeathers: locations,
       status: SavedLocationStatus.loaded,
     ));
   }

@@ -5,10 +5,10 @@ sealed class SavedLocationEvent extends Equatable {
   const SavedLocationEvent();
 }
 
-final class GetSavedLocationsWeatherEvent extends SavedLocationEvent {
+final class RefreshSavedLocationsWeatherEvent extends SavedLocationEvent {
   final List<WeatherForecastResponse> weatherForecasts;
 
-  const GetSavedLocationsWeatherEvent({required this.weatherForecasts});
+  const RefreshSavedLocationsWeatherEvent({required this.weatherForecasts});
 
   @override
   List<Object> get props => [];

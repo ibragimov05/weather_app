@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:weather_app/core/core.dart';
-import 'package:weather_app/features/home/presentation/bloc/saved_location/saved_location_bloc.dart';
-import 'package:weather_app/features/home/presentation/pages/widgets/add_new_place_modal.dart';
-import 'package:weather_app/features/home/presentation/pages/widgets/saved_location_item.dart';
-import 'package:weather_app/features/home/presentation/pages/widgets/weather_empty.dart';
-import 'package:weather_app/injector_container.dart';
+
+import 'widgets.dart';
+import '../../../../../core/core.dart';
+import '../../../../../injector_container.dart';
+import '../../bloc/saved_location/saved_location_bloc.dart';
 
 class HomeDrawer extends StatelessWidget {
   const HomeDrawer({super.key});
@@ -51,28 +50,36 @@ class HomeDrawer extends StatelessWidget {
               Expanded(
                 child: BlocBuilder<SavedLocationBloc, SavedLocationState>(
                   builder: (context, state) {
-                    return switch (state.status) {
-                      SavedLocationStatus.initial => const WeatherEmpty(),
-                      SavedLocationStatus.error => Center(
-                          child: Text('Error: ${state.error}'),
-                        ),
-                      SavedLocationStatus.loaded ||
-                      SavedLocationStatus.loading =>
-                        Skeletonizer(
-                          enabled: state.status.isLoading,
-                          child: state.savedLocationsWeather.isEmpty
-                              ? const WeatherEmpty()
-                              : ListView.builder(
-                                  itemCount: state.savedLocationsWeather.length,
-                                  padding: AppUtils.kPaddingAll16,
-                                  itemBuilder: (context, index) =>
-                                      SavedLocationItem(
-                                    response:
-                                        state.savedLocationsWeather[index],
+                    return RefreshIndicator(
+                      onRefresh: () async => getIt
+                          .get<SavedLocationBloc>()
+                          .add(RefreshSavedLocationsWeatherEvent(
+                            weatherForecasts: state.savedLocationsWeathers,
+                          )),
+                      child: switch (state.status) {
+                        SavedLocationStatus.initial => const WeatherEmpty(),
+                        SavedLocationStatus.error => Center(
+                            child: Text('Error: ${state.error}'),
+                          ),
+                        SavedLocationStatus.loaded ||
+                        SavedLocationStatus.loading =>
+                          Skeletonizer(
+                            enabled: state.status.isLoading,
+                            child: state.savedLocationsWeathers.isEmpty
+                                ? const WeatherEmpty()
+                                : ListView.builder(
+                                    itemCount:
+                                        state.savedLocationsWeathers.length,
+                                    padding: AppUtils.kPaddingAll16,
+                                    itemBuilder: (context, index) =>
+                                        SavedLocationItem(
+                                      response:
+                                          state.savedLocationsWeathers[index],
+                                    ),
                                   ),
-                                ),
-                        ),
-                    };
+                          ),
+                      },
+                    );
                   },
                 ),
               ),
