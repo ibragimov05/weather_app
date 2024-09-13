@@ -53,7 +53,7 @@ class WeatherForecastBloc
     emit(state.copyWith(weatherForecastStatus: WeatherForecastStatus.loading));
 
     final Either<Failure, WeatherForecastResponse> result =
-        await _weatherForecastRepository.getWeatherForecastByLatLong(
+        await _weatherForecastRepository.getWeatherForecastByCityName(
       request: SendWeatherForecastRequest(
         // latitude: event.latitude,
         // longitude: event.longitude,

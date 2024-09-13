@@ -15,7 +15,7 @@ part '../../data/repository/weather_forecast_repository_impl.dart';
 sealed class WeatherForecastRepository {
   const WeatherForecastRepository();
 
-  Future<Either<Failure, WeatherForecastResponse>> getWeatherForecastByLatLong({
+  Future<Either<Failure, WeatherForecastResponse>> getWeatherForecastByCityName({
     required SendWeatherForecastRequest request,
   });
 }

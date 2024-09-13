@@ -120,7 +120,7 @@ class HomePage extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        "${state.weatherForecastResponse?.current?.tempC?.round().toString()}",
+                                        "${state.weatherForecastResponse?.current?.tempC?.round()}",
                                         style: const TextStyle(
                                           color: AppColors.white,
                                           fontSize: 80,

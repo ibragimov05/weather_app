@@ -9,7 +9,7 @@ class WeatherForecastRepositoryImpl extends WeatherForecastRepository {
   }) : _dio = dio;
 
   @override
-  Future<Either<Failure, WeatherForecastResponse>> getWeatherForecastByLatLong({
+  Future<Either<Failure, WeatherForecastResponse>> getWeatherForecastByCityName({
     required SendWeatherForecastRequest request,
   }) async {
     try {

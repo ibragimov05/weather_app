@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../injector_container.dart';
-import '../../bloc/weather/weather_forecast_bloc.dart';
+import '../../../../../core/core.dart';
 
-/// [WeatherEmpty] widget works only once
-///
-/// When the user enters first time to the app
 class WeatherEmpty extends StatelessWidget {
   const WeatherEmpty({super.key});
 
   @override
   Widget build(BuildContext context) {
-    getIt.get<WeatherForecastBloc>().add(
-          const GetWeatherByNameEvent(cityName: 'Tashkent'),
-        );
-    return const Center(child: CircularProgressIndicator());
+    return const Center(
+      child: Text(
+        'You do not have saved locations yet',
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
+          color: AppColors.white,
+        ),
+      ),
+    );
   }
 }
