@@ -36,9 +36,6 @@ dependencies:
   # path provider
   path_provider: ^2.1.4
 
-  # geo locator
-  geolocator: ^13.0.1
-
   # shimmer effect
   skeletonizer: ^1.4.2
 
