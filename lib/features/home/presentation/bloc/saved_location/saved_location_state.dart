@@ -2,13 +2,13 @@ part of 'saved_location_bloc.dart';
 
 @JsonSerializable()
 class SavedLocationState extends Equatable {
-  final List<WeatherForecastResponse> savedLocationsWeathers;
   final SavedLocationStatus status;
+  final List<WeatherForecastResponse> savedLocationsWeathers;
   final String? error;
 
   const SavedLocationState({
-    this.savedLocationsWeathers = const [],
     this.status = SavedLocationStatus.initial,
+    this.savedLocationsWeathers = const [],
     this.error,
   });
 

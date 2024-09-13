@@ -68,16 +68,22 @@ class SavedLocationBloc
   ) async {
     emit(state.copyWith(status: SavedLocationStatus.loading));
 
-    final response =
-        await _weatherForecastRepository.getWeatherForecastByCityName(
+    final response = await _weatherForecastRepository.getWeatherForecastByCityName(
       request: SendWeatherForecastRequest(cityName: event.cityName),
     );
 
     response.fold(
-      (Failure l) => emit(state.copyWith(status: SavedLocationStatus.loaded)),
+      (Failure l) => emit(state.copyWith(
+        status: SavedLocationStatus.error,
+        error: l.toString(),
+      )),
       (WeatherForecastResponse r) {
-        state.savedLocationsWeathers.add(r);
-        emit(state.copyWith(status: SavedLocationStatus.loaded));
+        final updatedLocations = List<WeatherForecastResponse>.from(state.savedLocationsWeathers)
+          ..add(r);
+        emit(state.copyWith(
+          status: SavedLocationStatus.loaded,
+          savedLocationsWeathers: updatedLocations,
+        ));
       },
     );
   }
