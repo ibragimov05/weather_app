@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
             builder: (BuildContext context, WeatherForecastState state) {
               return switch (state.weatherForecastStatus) {
                 WeatherForecastStatus.initial =>
-                  const Center(child: Text('No data')),
+                  const Center(child: Text('Something went wrong')),
                 WeatherForecastStatus.error => Center(
                     child: Text(
                       'Error: ${state.errorMessage}',
