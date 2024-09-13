@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../core/core.dart';
-import '../../../data/models/models.dart';
+import '../../data/models/models.dart';
 
 class WeatherData extends StatelessWidget {
   final WeatherForecastResponse? weatherForecastResponse;

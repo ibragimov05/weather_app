@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import 'widgets/widgets.dart';
 import '../../../../core/core.dart';
 import '../../../../injector_container.dart';
 import '../bloc/weather/weather_forecast_bloc.dart';
+import '../widgets/widgets.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -27,9 +27,8 @@ class HomePage extends StatelessWidget {
           child: BlocBuilder<WeatherForecastBloc, WeatherForecastState>(
             builder: (BuildContext context, WeatherForecastState state) {
               return switch (state.weatherForecastStatus) {
-                WeatherForecastStatus.initial => const Center(
-                    child: WeatherEmptyCircular(),
-                  ),
+                WeatherForecastStatus.initial =>
+                  const Center(child: Text('No data')),
                 WeatherForecastStatus.error => Center(
                     child: Text(
                       'Error: ${state.errorMessage}',

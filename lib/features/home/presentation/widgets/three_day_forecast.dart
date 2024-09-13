@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../../../core/core.dart';
-import '../../../data/models/weather_forecast/weather_forecast_response.dart';
+import '../../data/models/models.dart';
 
 class ThreeDayForecast extends StatefulWidget {
   final WeatherForecastResponse? weatherForecastResponse;

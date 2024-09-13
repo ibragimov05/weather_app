@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../bloc/blocs.dart';
 import '../../../../../core/core.dart';
 import '../../../../../injector_container.dart';
-import '../../bloc/saved_location/saved_location_bloc.dart';
 
 class AddNewPlaceModal extends StatefulWidget {
   const AddNewPlaceModal({super.key});
